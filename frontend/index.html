@@ -1,24 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOTESHIP - AI Study Assistant</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOTESHIP | AI Student Workspace</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar collapsed">
+        <div class="logo">NS</div>
+      </aside>
 
-    <div class="app-container">
-        <h2 class="title">NOTESHIP — AI Assistant</h2>
+      <main class="chat-container">
+        <header class="chat-header">
+          <div class="header-info">
+            <h2>NOTESHIP AI</h2>
+            <span class="status-badge">● Online</span>
+          </div>
+        </header>
 
-        <div id="chat-box" class="chat-box"></div>
+        <div id="chat-box" class="chat-box">
+          <div class="message bot">
+            <div class="avatar bot">
+              <span class="material-symbols-rounded" aria-hidden="true"
+                >smart_toy</span
+              >
+            </div>
+            <div class="message-content">
+              Hello! I'm your study assistant. I can help you with notes,
+              routines, and PYQs. What are we studying today?
+            </div>
+          </div>
+        </div>
 
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="Type your message..." />
-            <button id="send-btn">Send</button>
+          <div class="suggested-queries">
+            <button class="suggestion-chip">Generate Notes</button>
+            <button class="suggestion-chip">Explain in Simple Terms</button>
+            <button class="suggestion-chip">Give Me PYQs</button>
+            <button class="suggestion-chip">Make a Study Plan</button>
+          </div>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="user-input"
+              placeholder="Ask anything..."
+              autocomplete="off"
+            />
+            <label for="user-input" class="visually-hidden">Message</label>
+            <button id="send-btn" aria-label="Send message">
+              <span class="material-symbols-rounded" aria-hidden="true"
+                >send</span
+              >
+            </button>
+          </div>
+          <div class="footer-text">NOTESHIP v0.1 (Dev Build)</div>
         </div>
+      </main>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
