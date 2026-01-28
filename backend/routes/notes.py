@@ -1,11 +1,11 @@
-from flask import Blueprint, jsonify, request
+from quart import Blueprint, jsonify, request
 from services.ai_service import get_ai_response
 
 notes_bp = Blueprint("notes_routes", __name__)
 
 @notes_bp.route("/notes", methods=["POST"])
-def generate_notes():
-    data = request.get_json()
+async def generate_notes():
+    data = await request.get_json()
 
     if not data or "topic" not in data:
         return jsonify({"status": "error", "message": "Missing 'topic' field"}), 400
@@ -38,13 +38,13 @@ def generate_notes():
     """
 
     try:
-        reply = get_ai_response(user_prompt, system_message=system_prompt)
+        reply = await get_ai_response(user_prompt, system_message=system_prompt)
 
         return jsonify({
             "status": "success",
             "topic": topic,
-            "reply": reply
+            "reply": reply  
         })
     except Exception as e:
-        print(f"Notes API Error: {e} | Topic: {topic}")
+        print(f"Notes API Error: {e} | Topic: [REDACTED]")
         return jsonify({"status": "error", "message": "AI service unavailable"}), 503

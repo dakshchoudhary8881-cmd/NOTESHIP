@@ -373,8 +373,13 @@ button:focus-visible {
 
 /* Mobile Polish */
 @media (max-width: 600px) {
-  .sidebar {
-    display: none;
+  .sidebar,
+  .sidebar.collapsed {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   .app-layout {
     flex-direction: column;

@@ -1,4 +1,5 @@
-flask
-flask-cors
-requests
+quart
+quart-cors
+aiohttp
 python-dotenv
+hypercorn

@@ -1,16 +1,18 @@
+import asyncio
 import os
+from pathlib import Path
 
-import requests
+import aiohttp
 from dotenv import load_dotenv
 
-load_dotenv()
+# Explicitly load .env from the backend directory (parent of services)
+env_path = Path(__file__).resolve().parent.parent / '.env'
+load_dotenv(env_path)
 
 
-
-
-def get_ai_response(user_prompt: str, system_message: str = "You are NOTESHIP, a helpful study assistant."):
+async def get_ai_response(user_prompt: str, system_message: str = "You are NOTESHIP, a helpful study assistant."):
     """
-    Base function to call Bytez API.
+    Base function to call Bytez API (Async).
     """
     bytez_key = os.getenv("BYTEZ_API_KEY")
     if not bytez_key:
@@ -37,25 +39,25 @@ def get_ai_response(user_prompt: str, system_message: str = "You are NOTESHIP, a
     }
 
     try:
-        response = requests.post(
-            bytez_endpoint,
-            headers=headers,
-            json=payload,
-            timeout=60
-        )
+        timeout = aiohttp.ClientTimeout(total=5)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.post(bytez_endpoint, headers=headers, json=payload) as response:
+                
+                if not response.ok:
+                    text = await response.text()
+                    return f"Model API error {response.status}: {text}"
 
-        if not response.ok:
-            return f"Model API error {response.status_code}: {response.text}"
+                data = await response.json()
 
-        data = response.json()
+                if "output" in data and data["output"] and "content" in data["output"]:
+                    return data["output"]["content"]
 
-        if "output" in data and data["output"] and "content" in data["output"]:
-            return data["output"]["content"]
+                if "error" in data and data["error"]:
+                    return f"Bytez Error: {data['error']}"
 
-        if "error" in data and data["error"]:
-            return f"Bytez Error: {data['error']}"
+                return "No output returned by Bytez"
 
-        return "No output returned by Bytez"
-
+    except asyncio.TimeoutError:
+        return "Request timed out (5s limit)"
     except Exception as e:
         return f"Request Failed: {str(e)}"

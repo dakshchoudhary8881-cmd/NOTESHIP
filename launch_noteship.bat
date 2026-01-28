@@ -12,8 +12,9 @@ echo -----------------------------------------
 echo.
 
 :: === Start Backend ===
-echo Starting Backend (Flask)...
-start cmd /k "cd /d %BACKEND_DIR% && python app.py"
+echo Starting Backend (Quart/Hypercorn)...
+set PYTHONPATH=%BACKEND_DIR%;%PYTHONPATH%
+start cmd /k "cd /d %BACKEND_DIR% && hypercorn app:app --bind 127.0.0.1:5000"
 
 :: === Start Frontend ===
 echo Starting Frontend (Static Server)...

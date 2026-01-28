@@ -123,8 +123,8 @@ def cleanup():
     # We walk again bottom-up
     for root, dirs, files in os.walk(ROOT_DIR, topdown=False):
         rel_root = os.path.relpath(root, ROOT_DIR)
-        if rel_root == ".": continue
-        if rel_root.startswith(".venv") or rel_root.startswith(".git") or rel_root.startswith(".vscode"): continue
+        if rel_root == ".": continue  # noqa: E701
+        if rel_root.startswith(".venv") or rel_root.startswith(".git") or rel_root.startswith(".vscode"): continue  # noqa: E701
         
         # Don't delete preserved struct dirs even if empty (unlikely given app.py etc)
         if rel_root in PRESERVE_DIRS:

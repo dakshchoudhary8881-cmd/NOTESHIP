@@ -159,3 +159,22 @@ sendBtn.addEventListener('click', sendMessage)
 userInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') sendMessage()
 })
+
+// Initialize existing bot messages with copy buttons
+document
+  .querySelectorAll('.message.bot .message-content')
+  .forEach((content) => {
+    if (!content.querySelector('.copy-btn')) {
+      const copyBtn = document.createElement('button')
+      copyBtn.className = 'copy-btn'
+      copyBtn.innerHTML =
+        '<span class="material-symbols-rounded">content_copy</span>'
+      copyBtn.ariaLabel = 'Copy message'
+      // Find the text content (excluding nested elements if complex, but simple innerText is usually fine for copy)
+      // For markdown rendered content, we might want the raw text or the innerText.
+      // Here we just use innerText.
+      const text = content.innerText
+      copyBtn.onclick = () => copyToClipboard(text, copyBtn)
+      content.appendChild(copyBtn)
+    }
+  })
