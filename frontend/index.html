@@ -4,71 +4,145 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NOTESHIP | AI Student Workspace</title>
+    <meta
+      name="description"
+      content="Premium AI-powered student workspace for notes and study planning."
+    />
+
+    <!-- Google Fonts: Outfit (Premium & Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Icons: Material Symbols Rounded -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
   </head>
   <body>
-    <div class="app-layout">
-      <aside class="sidebar collapsed">
-        <div class="logo">NS</div>
-      </aside>
-
-      <main class="chat-container">
-        <header class="chat-header">
-          <div class="header-info">
-            <h2>NOTESHIP AI</h2>
-            <span class="status-badge">● Online</span>
-          </div>
-        </header>
-
-        <div id="chat-box" class="chat-box">
-          <div class="message bot">
-            <div class="avatar bot">
-              <span class="material-symbols-rounded" aria-hidden="true"
-                >smart_toy</span
-              >
-            </div>
-            <div class="message-content">
-              Hello! I'm your study assistant. I can help you with notes,
-              routines, and PYQs. What are we studying today?
-            </div>
-          </div>
+    <div class="app-container">
+      <!-- Sidebar (Hidden on Mobile) -->
+      <aside class="sidebar" aria-label="Sidebar Navigation">
+        <div class="sidebar-header">
+          <span class="material-symbols-rounded logo-icon">school</span>
+          <h1>NOTESHIP</h1>
         </div>
 
-        <div class="input-area">
-          <div class="suggested-queries">
-            <button class="suggestion-chip">Generate Notes</button>
-            <button class="suggestion-chip">Explain in Simple Terms</button>
-            <button class="suggestion-chip">Give Me PYQs</button>
-            <button class="suggestion-chip">Make a Study Plan</button>
+        <nav class="sidebar-nav">
+          <button class="nav-item active">
+            <span class="material-symbols-rounded">chat_bubble</span>
+            <span>Chat</span>
+          </button>
+          <button class="nav-item">
+            <span class="material-symbols-rounded">description</span>
+            <span>Notes</span>
+          </button>
+          <button class="nav-item">
+            <span class="material-symbols-rounded">history</span>
+            <span>History</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button class="nav-item">
+            <span class="material-symbols-rounded">settings</span>
+            <span>Settings</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Chat Interface -->
+      <main class="main-content">
+        <!-- Header (Mobile Only) -->
+        <header class="mobile-header">
+          <span class="material-symbols-rounded logo-icon">school</span>
+          <h2>NOTESHIP</h2>
+        </header>
+
+        <!-- Chat History Area -->
+        <section
+          id="chat-container"
+          class="chat-container"
+          role="log"
+          aria-live="polite"
+        >
+          <!-- Welcome Message -->
+          <div class="message bot-message welcome">
+            <div class="avatar">
+              <span class="material-symbols-rounded">smart_toy</span>
+            </div>
+            <div class="message-content">
+              <p>
+                Hello! I'm your AI study assistant. How can I help you ace your
+                exams today?
+              </p>
+            </div>
           </div>
-          <div class="input-wrapper">
-            <input
-              type="text"
-              id="user-input"
-              placeholder="Ask anything..."
-              autocomplete="off"
-            />
-            <label for="user-input" class="visually-hidden">Message</label>
-            <button id="send-btn" aria-label="Send message">
-              <span class="material-symbols-rounded" aria-hidden="true"
-                >send</span
-              >
+        </section>
+
+        <!-- Input Area -->
+        <div class="input-area-wrapper">
+          <!-- Suggestion Chips -->
+          <div class="chips-container" id="chips-container">
+            <button
+              class="chip"
+              data-query="Generate concise notes for this topic"
+            >
+              <span class="material-symbols-rounded">edit_note</span>
+              Generate Notes
+            </button>
+            <button
+              class="chip"
+              data-query="Explain this in simple terms like I'm 5"
+            >
+              <span class="material-symbols-rounded">school</span>
+              Explain Simply
+            </button>
+            <button
+              class="chip"
+              data-query="Give me 5 Past Year Questions (PYQs) on this"
+            >
+              <span class="material-symbols-rounded">quiz</span>
+              Give Me PYQs
+            </button>
+            <button
+              class="chip"
+              data-query="Create a 3-day study plan for this subject"
+            >
+              <span class="material-symbols-rounded">calendar_month</span>
+              Study Plan
             </button>
           </div>
-          <div class="footer-text">NOTESHIP v0.1 (Dev Build)</div>
+
+          <!-- Input Form -->
+          <form id="chat-form" class="chat-form">
+            <div class="input-group">
+              <textarea
+                id="user-input"
+                placeholder="Ask anything..."
+                rows="1"
+                aria-label="Chat message"
+                required
+              ></textarea>
+              <button type="submit" id="send-btn" aria-label="Send message">
+                <span class="material-symbols-rounded">send</span>
+              </button>
+            </div>
+          </form>
+          <div class="footer-note">
+            AI can make mistakes. Check important info.
+          </div>
         </div>
       </main>
     </div>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
   </body>
 </html>
